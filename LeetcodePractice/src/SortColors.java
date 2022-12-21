@@ -28,21 +28,19 @@ public class SortColors {
             int temporary;
 
             if(nums[headPointer] == 2){
-                headPointer++;
+                headPointer--;
             }else if(nums[tailPointer] == 2){
                 temporary = nums[tailPointer];
                 nums[tailPointer] = nums[headPointer];
                 nums[headPointer] = temporary;
                 tailPointer++;
-                headPointer++;
+                headPointer--;
             }else{
                 tailPointer++;
             }
         }
 
-        for(int i = 0; i < nums.length; i++){
-            System.out.println(nums[i]);
-        }
+
 
     }
 }
