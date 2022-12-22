@@ -1,46 +1,40 @@
 public class SortColors {
     public static void sortColors(int[] nums){
+        int headPointer = nums.length - 1;
         int tailPointer = 0;
-        int headPointer = 1;
 
-        while(headPointer < nums.length){
-            int temporary;
-
-            if(nums[headPointer] == 0 && nums[tailPointer] == 0){
-                headPointer++;
-            }else if(nums[tailPointer] == 0){
-                tailPointer = headPointer;
-                headPointer++;
+        while(headPointer > tailPointer && headPointer != tailPointer){
+            if(nums[tailPointer] == 0){
+                tailPointer++;
             }else if(nums[headPointer] == 0){
-                temporary = nums[tailPointer];
-                nums[tailPointer] = nums[headPointer];
-                nums[headPointer] = temporary;
+                swapValues(nums, headPointer, tailPointer);
+                headPointer--;
                 tailPointer++;
+            }else{
+                headPointer--;
+            }
+        }
+
+        while(headPointer < nums.length && tailPointer < nums.length){
+            if(nums[tailPointer] == 0){
+                tailPointer++;
+            }else if(nums[tailPointer] == 1){
+                tailPointer++;
+            }else if(headPointer < tailPointer){
+                headPointer = tailPointer + 1;
+            }else if(nums[headPointer] == 1){
+                swapValues(nums, headPointer, tailPointer);
                 headPointer++;
+                tailPointer++;
             }else{
                 headPointer++;
             }
         }
+    }
 
-        headPointer = headPointer - 1;
-
-        while(tailPointer < headPointer){
-            int temporary;
-
-            if(nums[headPointer] == 2){
-                headPointer--;
-            }else if(nums[tailPointer] == 2){
-                temporary = nums[tailPointer];
-                nums[tailPointer] = nums[headPointer];
-                nums[headPointer] = temporary;
-                tailPointer++;
-                headPointer--;
-            }else{
-                tailPointer++;
-            }
-        }
-
-
-
+    public static void swapValues(int[] tempNums,int firstIndex, int secondIndex){
+        int temporaryNum = tempNums[firstIndex];
+        tempNums[firstIndex] = tempNums[secondIndex];
+        tempNums[secondIndex] = temporaryNum;
     }
 }
