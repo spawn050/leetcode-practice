@@ -1,40 +1,43 @@
 public class SortColors {
-    public static void sortColors(int[] nums){
-        int headPointer = nums.length - 1;
-        int tailPointer = 0;
+    public static void sortColors(int[] nums) {
+        if(nums.length == 0 || nums.length == 1){
+            return;
+        }
 
-        while(headPointer > tailPointer && headPointer != tailPointer){
-            if(nums[tailPointer] == 0){
-                tailPointer++;
-            }else if(nums[headPointer] == 0){
-                swapValues(nums, headPointer, tailPointer);
-                headPointer--;
-                tailPointer++;
+        int[] counter = {0,0,0};
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 0){
+                counter[0]++;
+            }else if(nums[i] == 1){
+                counter[1]++;
             }else{
-                headPointer--;
+                counter[2]++;
             }
         }
 
-        while(headPointer < nums.length && tailPointer < nums.length){
-            if(nums[tailPointer] == 0){
-                tailPointer++;
-            }else if(nums[tailPointer] == 1){
-                tailPointer++;
-            }else if(headPointer < tailPointer){
-                headPointer = tailPointer + 1;
-            }else if(nums[headPointer] == 1){
-                swapValues(nums, headPointer, tailPointer);
-                headPointer++;
-                tailPointer++;
-            }else{
-                headPointer++;
+        for(int i = 0; i < nums.length;){
+            while(counter[0] != 0){
+                nums[i] = 0;
+                counter[0]--;
+                i++;
+            }
+            while(counter[1] != 0){
+                nums[i] = 1;
+                counter[1]--;
+                i++;
+            }
+            while(counter[2] != 0){
+                nums[i] = 2;
+                counter[2]--;
+                i++;
             }
         }
+        printElements(nums);
     }
 
-    public static void swapValues(int[] tempNums,int firstIndex, int secondIndex){
-        int temporaryNum = tempNums[firstIndex];
-        tempNums[firstIndex] = tempNums[secondIndex];
-        tempNums[secondIndex] = temporaryNum;
+    private static void printElements(int[] array){
+        for(int i = 0; i < array.length; i++){
+            System.out.print(array[i]+",");
+        }
     }
 }
